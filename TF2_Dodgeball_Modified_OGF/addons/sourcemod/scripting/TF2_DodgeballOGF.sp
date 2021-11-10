@@ -145,6 +145,7 @@ ConVar g_hCvarStealDistance;
 ConVar g_hCvarDelayPrevention;
 ConVar g_hCvarDelayPreventionTime;
 ConVar g_hCvarDelayPreventionSpeedup;
+ConVar g_hCvarBounceRateController;
 
 // -----<<< Gameplay >>>-----
 bool   g_bEnabled;                // Is the plugin enabled?
@@ -161,6 +162,7 @@ float  g_fStealDistance = 48.0;
 int    g_iEmptyModel = -1;
 bool   g_bClientHideTrails [MAXPLAYERS + 1];
 bool   g_bClientHideSprites[MAXPLAYERS + 1];
+float  g_fBounceRateController = 1.00; // default bounce value. Increasing = stronger bounce / decreasing = lower bounce
 
 enum struct eRocketSteal
 {
@@ -311,8 +313,10 @@ public void OnPluginStart()
     g_hCvarDelayPrevention = CreateConVar("tf_dodgeball_delay_prevention", "1", "Enable delay prevention?");
     g_hCvarDelayPreventionTime = CreateConVar("tf_dodgeball_dp_time", "5", "How much time (in seconds) before delay prevention activates?", FCVAR_NONE, true, 0.0, false);
     g_hCvarDelayPreventionSpeedup = CreateConVar("tf_dodgeball_dp_speedup", "100", "How much speed (in hammer units per second) should the rocket gain when delayed?", FCVAR_NONE, true, 0.0, false);
+    g_hCvarBounceRateController = CreateConVar("tf_dodgeball_bounce_rate", "1.00", "This controlls how strong is the bounce = 1.00 default bounce", FCVAR_NONE, true, 0.0, false);
     
     g_hCvarStealDistance.AddChangeHook(tf2dodgeball_cvarhook);
+    g_hCvarBounceRateController.AddChangeHook(tf2dodgeball_cvarhook);
     
     g_hRocketClassTrie = new StringMap();
     g_hSpawnersTrie = new StringMap();
@@ -3041,6 +3045,10 @@ public void tf2dodgeball_cvarhook(Handle convar, const char[] oldValue, const ch
 	{
 		g_fStealDistance = StringToFloat(newValue);
 	}
+	if (convar == g_hCvarBounceRateController)
+	{
+		g_fBounceRateController = StringToFloat(newValue);
+	}
 }
 
 public Action OnStartTouch(int entity, int other)
@@ -3097,7 +3105,7 @@ public Action OnTouch(int entity, int other)
 	float dotProduct = GetVectorDotProduct(vNormal, vVelocity);
 	
 	ScaleVector(vNormal, dotProduct);
-	ScaleVector(vNormal, 2.0);
+	ScaleVector(vNormal, 2.0 * g_fBounceRateController);
 	
 	float vBounceVec[3];
 	SubtractVectors(vVelocity, vNormal, vBounceVec);
