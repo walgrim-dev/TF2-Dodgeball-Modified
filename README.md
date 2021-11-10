@@ -8,7 +8,8 @@
     tf_dodgeball_sp_distance      "48.0"  - The distance between players for a steal to register.
     tf_dodgeball_delay_prevention "1"     - Enable delay prevention?
     tf_dodgeball_dp_time          "5"     - How much time [in seconds] before delay prevention activates?
-    tf_dodgeball_dp_speedup       "100"   - How much speed [in hammer units per second] should the rocket gain when delayed? 
+    tf_dodgeball_dp_speedup       "100"   - How much speed [in hammer units per second] should the rocket gain when delayed?
+    tf_dodgeball_bounce_rate      "1.00"  - This controlls how strong is the bounce = 1.00 default bounce.
 ```
 
 # Commands
