@@ -49,14 +49,6 @@ The OGF version also includes a few more rocket settings that are **not** presen
 - Commands to modify the movement parameters of a rocket.
 - Custom trails toggleable client-side.
 
-# Fixes
-- Fixed some errors caused by invalid client indexes in timers.
-- Fixed the wrong rocket class being rarely chosen.
-- Fixed neutral rockets.
-
-# Known bugs
-- The `"refresh"` command throws a `"Divide by zero"` exception.
-
 # Credits
 1. The original YADB plugin by Damizean : [AlliedMods Link](https://forums.alliedmods.net/showthread.php?t=134503)
 2. The updated YADB plugin by bloody & lizzy : [AlliedMods Link](https://forums.alliedmods.net/showthread.php?p=2534328) or [GitHub Link](https://github.com/bloodgit/TF2-Dodgeball)
