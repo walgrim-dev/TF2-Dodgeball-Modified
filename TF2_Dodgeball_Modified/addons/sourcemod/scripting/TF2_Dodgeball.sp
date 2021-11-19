@@ -1985,6 +1985,7 @@ public Action CmdRefresh(int iClient, int iArgs)
 		char strMapFile[PLATFORM_MAX_PATH]; Format(strMapFile, sizeof(strMapFile), "%s.cfg", strMapName);
 		ParseConfigurations();
 		ParseConfigurations(strMapFile);
+		PopulateSpawnPoints();
 		PrintToChatAll("\x05%N\01 refreshed the \x05dodgeball configs\01.", iClient);
 	}
 	else
