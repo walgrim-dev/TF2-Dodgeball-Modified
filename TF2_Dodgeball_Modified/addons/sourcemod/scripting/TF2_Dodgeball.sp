@@ -538,8 +538,6 @@ public Action OnSetupFinished(Event hEvent, char[] strEventName, bool bDontBroad
 {   
     if ((g_bEnabled == true) && (BothTeamsPlaying() == true))
     {
-        PopulateSpawnPoints();
-        
         if (g_iLastDeadTeam == 0) g_iLastDeadTeam = GetURandomIntRange(view_as<int>(TFTeam_Red), view_as<int>(TFTeam_Blue));
         if (!IsValidClient(g_iLastDeadClient)) g_iLastDeadClient = 0;
         
@@ -551,6 +549,8 @@ public Action OnSetupFinished(Event hEvent, char[] strEventName, bool bDontBroad
         g_fNextSpawnTime   = GetGameTime();
         g_bRoundStarted    = true;
         g_iRoundCount++;
+	
+	PopulateSpawnPoints();
     }
 }
 
